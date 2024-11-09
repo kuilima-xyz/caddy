@@ -1,6 +1,6 @@
 module caddy
 
-go 1.23.1
+go 1.22.6
 
 require (
 	github.com/caddy-dns/namecheap v0.0.0-20240114194457-7095083a3538
