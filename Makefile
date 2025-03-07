@@ -8,12 +8,21 @@ help:
 	@echo 'Usage:'
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/ /'
 
+.PHONY: no-dirty
+no-dirty:
+	@test -z "$(shell git status --porcelain)"
+
+.PHONY: caddy_linux_amd64
+caddy_linux_amd64:
+	GOOS=linux GOARCH=amd64 go build -o $@ ./cmd/...
+
+## build: build the application
+.PHONY: build
+build: caddy_linux_amd64
+
 ## release: create a release from the latest commit
 .PHONY: release
-release:
-	gh run download -n caddy_linux_amd64
-	mv caddy caddy_linux_amd64
+release: no-dirty build
 	git tag --annotate --message "Tag v$(VERSION)" v$(VERSION)
 	git push --follow-tags
-	gh release create v$(VERSION)
-	gh release upload v$(VERSION) caddy_linux_amd64
+	gh release create --verify-tag v$(VERSION) caddy_linux_amd64
