@@ -26,3 +26,9 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: caddy_linux_amd64
+        path: caddy
