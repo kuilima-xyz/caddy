@@ -20,9 +20,12 @@ caddy_linux_amd64:
 .PHONY: build
 build: caddy_linux_amd64
 
+caddy_linux_amd64.tar.gz: caddy_linux_amd64
+	tar -czf $@ $<
+
 ## release: create a release from the latest commit
 .PHONY: release
-release: no-dirty build
+release: no-dirty caddy_linux_amd64.tar.gz
 	git tag --annotate --message "Tag v$(VERSION)" v$(VERSION)
 	git push --follow-tags
-	gh release create --verify-tag v$(VERSION) caddy_linux_amd64
+	gh release create --verify-tag v$(VERSION) caddy_linux_amd64.tar.gz
