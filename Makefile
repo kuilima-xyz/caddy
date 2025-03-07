@@ -29,3 +29,8 @@ release: no-dirty $(BUILD_DIR)/caddy_linux_amd64.tar.gz
 	git tag --annotate --message "Tag v$(VERSION)" v$(VERSION)
 	git push --follow-tags
 	gh release create --verify-tag v$(VERSION) caddy_linux_amd64.tar.gz
+
+## clean: clean build artifacts
+.PHONY: clean
+clean:
+	rm -rf $(BUILD_DIR)
