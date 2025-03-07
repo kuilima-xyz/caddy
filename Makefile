@@ -13,7 +13,7 @@ help:
 release:
 	gh run download -n caddy_linux_amd64
 	mv caddy caddy_linux_amd64
-	git tag --annotate --message "Tag v$(VERSION)"
+	git tag --annotate --message "Tag v$(VERSION)" v$(VERSION)
 	git push --follow-tags
 	gh release create v$(VERSION)
 	gh release upload caddy_linux_amd64
