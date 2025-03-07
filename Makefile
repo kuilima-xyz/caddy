@@ -16,4 +16,4 @@ release:
 	git tag --annotate --message "Tag v$(VERSION)" v$(VERSION)
 	git push --follow-tags
 	gh release create v$(VERSION)
-	gh release upload caddy_linux_amd64
+	gh release upload v$(VERSION) caddy_linux_amd64
